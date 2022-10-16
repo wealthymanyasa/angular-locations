@@ -17,7 +17,7 @@
         <div class="absolute z-10 hidden bg-grey-200 group-hover:block">
 
             <div class="px-2 pt-2 pb-4 bg-gray-200 shadow-lg flex flex-col">
-              <a href="#">All Satellites</a>
+              <a routerLink="/home">All Satellites</a>
               <a href="#">Visible Satellites</a>
             </div>
         </div>
@@ -25,85 +25,143 @@
     <button class="flex flex-row items-center w-full px-4 text-base font-bold text-left uppercase bg-transparent rounded-lg md:w-auto md:inline md:mt-0 md:ml-4 focus:outline-none font-montserrat">
       <span>Map</span>
   </button>
-  <button class="flex flex-row items-center w-full px-4 text-base font-bold text-left uppercase bg-transparent rounded-lg md:w-auto md:inline md:mt-0 md:ml-4 focus:outline-none font-montserrat">
+  <button routerLink="/staff" class="flex flex-row items-center w-full px-4 text-base font-bold text-left uppercase bg-transparent rounded-lg md:w-auto md:inline md:mt-0 md:ml-4 focus:outline-none font-montserrat">
     <span>Spy Stuff</span>
 </button>
     </div>
+
+
+  <div class="mr-5 mt-4 inline-block">
+    <div class="input-group relative flex flex-wrap items-stretch w-full mb-4 rounded-full">
+      <input type="text" name="displayName" [(ngModel)]="filterTerm" class="form-control relative flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-full transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
+
+    </div>
+  </div>
+
     <div>
       <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">Logout</a>
     </div>
   </div>
 </nav>
-<div class=" bg-indigo-50">
 
   <div class="min-h-screen body-font text-gray-600 ">
     <div class="container mx-auto px-5 py-10">
       <div class="-m-4 flex flex-wrap gap-10">
 
-        <div class="w-full p-4 md:w-1/2 lg:w-1/4 bg-gray-300">
 
-          <div class="mt-4">
-            <h3 class="title-font mb-1 text-xs tracking-widest text-gray-500">PROJECT</h3>
-            <h2 class="title-font text-lg font-medium text-gray-900">Shooting Stars</h2>
-            <p class="mt-1">01/09/2022</p>
+        <div class="w-full p-4 md:w-1/2 lg:w-1/4 bg-gray-300 rounded-lg" *ngFor="let data of satellites | filter: filterTerm">
+
+          <div class="mt-4 ">
+            <div class="flex flex-row items-center justify-between">
+              <label>Name</label>
+              <h3 class="title-font mb-1 text-xs tracking-widest text-gray-500">{{data.displayName}}</h3>
+
+            </div>
+            <div class="flex flex-row items-center justify-between">
+               <label>Constellation</label>
+            <h2 class="title-font text-lg font-medium text-gray-900">{{data.constellation}}</h2>
+
+            </div>
+            <div class="flex flex-row items-center justify-between">
+               <label>Health Code</label>
+               <!-- <span [ngStyle]="{ 'background-color': getBgColor() }">Your content</span> -->
+            <p class="mt-1">{{data.orbit.healthCode}}</p>
+            </div>
+            <div class="flex flex-row items-center justify-between">
+             <label>Latitude</label>
+            <p class="mt-1">{{data.path[0].trace.latitude}}</p>
+            </div>
+            <div class="flex flex-row items-center justify-between">
+              <label>Longitude</label>
+             <p class="mt-1">{{data.path[0].trace.longitude}}</p>
+             </div>
+             <div>
+              <button type="button" (click)="toggleModal()" class="py-2 px-2 mx-2 my-2 rounded-full bg-cyan-500 text-black">View More...</button>
+             </div>
           </div>
         </div>
-        <div class="w-full p-4 md:w-1/2 lg:w-1/4 bg-gray-300">
 
-          <div class="mt-4">
-            <h3 class="title-font mb-1 text-xs tracking-widest text-gray-500">PROJECT</h3>
-            <h2 class="title-font text-lg font-medium text-gray-900">Shooting Stars</h2>
-            <p class="mt-1">01/09/2022</p>
-          </div>
-        </div>
-        <div class="w-full p-4 md:w-1/2 lg:w-1/4 bg-gray-300">
+    </div>
+  </div>
 
-          <div class="mt-4">
-            <h3 class="title-font mb-1 text-xs tracking-widest text-gray-500">PROJECT</h3>
-            <h2 class="title-font text-lg font-medium text-gray-900">Shooting Stars</h2>
-            <p class="mt-1">01/09/2022</p>
-          </div>
+  <!-- <button class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" (click)="toggleModal()">
+    Open regular modal
+  </button> -->
+  <div *ngIf="showModal" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+    <div class="relative w-auto my-6 mx-auto max-w-3xl">
+      <!--content-->
+      <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+        <!--header-->
+        <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+          <h3 class="text-3xl font-semibold">
+            Modal Title
+          </h3>
+          <button class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" (click)="toggleModal()">
+            <span class="bg-transparent text-black h-6 w-6 text-4xl block outline-none focus:outline-none">
+              ×
+            </span>
+          </button>
         </div>
-        <div class="w-full p-4 md:w-1/2 lg:w-1/4 bg-gray-300">
+        <!--body-->
+        <div class="relative p-6 flex-auto">
 
-          <div class="mt-4">
-            <h3 class="title-font mb-1 text-xs tracking-widest text-gray-500">PROJECT</h3>
-            <h2 class="title-font text-lg font-medium text-gray-900">Shooting Stars</h2>
-            <p class="mt-1">01/09/2022</p>
-          </div>
         </div>
-        <div class="w-full p-4 md:w-1/2 lg:w-1/4 bg-gray-300">
+        <!--footer-->
+        <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+          <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" (click)="toggleModal()">
+            Close
+          </button>
 
-          <div class="mt-4">
-            <h3 class="title-font mb-1 text-xs tracking-widest text-gray-500">PROJECT</h3>
-            <h2 class="title-font text-lg font-medium text-gray-900">Shooting Stars</h2>
-            <p class="mt-1">01/09/2022</p>
-          </div>
         </div>
-        <div class="w-full p-4 md:w-1/2 lg:w-1/4 bg-gray-300">
+      </div>
+    </div>
+  </div>
+  <div *ngIf="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+  <div class="flex flex-col">
+    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="overflow-hidden">
+          <table class="min-w-full">
+            <thead class="bg-white border-b">
+              <tr>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  Name
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  Constellation
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  Health Code
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  Latitude
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  Longitude
+                </th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let data of satellites | filter: filterTerm">
+              <tr class="bg-gray-100 border-b">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{data.displayName}}</td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  {{data.constellation}
+                </td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  {{data.healthCode}}
+                </td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  {{data.path[0].trace.latitude}}
+                </td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  {{data.path[0].trace.latitude}}
 
-          <div class="mt-4">
-            <h3 class="title-font mb-1 text-xs tracking-widest text-gray-500">PROJECT</h3>
-            <h2 class="title-font text-lg font-medium text-gray-900">Shooting Stars</h2>
-            <p class="mt-1">01/09/2022</p>
-          </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="w-full p-4 md:w-1/2 lg:w-1/4 bg-gray-300">
-
-          <div class="mt-4">
-            <h3 class="title-font mb-1 text-xs tracking-widest text-gray-500">PROJECT</h3>
-            <h2 class="title-font text-lg font-medium text-gray-900">Shooting Stars</h2>
-            <p class="mt-1">01/09/2022</p>
-          </div>
-        </div>
-        <div class="w-full p-4 md:w-1/2 lg:w-1/4 bg-gray-300">
-
-          <div class="mt-4">
-            <h3 class="title-font mb-1 text-xs tracking-widest text-gray-500">PROJECT</h3>
-            <h2 class="title-font text-lg font-medium text-gray-900">Shooting Stars</h2>
-            <p class="mt-1">01/09/2022</p>
-          </div>
-        </div>
+      </div>
     </div>
   </div>
   <!-- Footer -->

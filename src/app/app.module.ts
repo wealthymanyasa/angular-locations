@@ -8,6 +8,9 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { LocationComponent } from './location/location.component';
 import { ReactiveFormsModule ,FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { StaffComponent } from './staff/staff.component';
 
 @NgModule({
   declarations: [
@@ -15,13 +18,17 @@ import { ReactiveFormsModule ,FormsModule } from '@angular/forms';
     HeaderComponent,
     HomeComponent,
     LoginComponent,
-    LocationComponent
+    LocationComponent,
+    StaffComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    Ng2SearchPipeModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

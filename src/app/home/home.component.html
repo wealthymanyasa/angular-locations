@@ -43,47 +43,7 @@
     </div>
   </div>
 </nav>
-
-  <div class="min-h-screen body-font text-gray-600 ">
-    <div class="container mx-auto px-5 py-10">
-      <div class="-m-4 flex flex-wrap gap-10">
-
-
-        <div class="w-full p-4 md:w-1/2 lg:w-1/4 bg-gray-300 rounded-lg" *ngFor="let data of satellites | filter: filterTerm">
-
-          <div class="mt-4 ">
-            <div class="flex flex-row items-center justify-between">
-              <label>Name</label>
-              <h3 class="title-font mb-1 text-xs tracking-widest text-gray-500">{{data.displayName}}</h3>
-
-            </div>
-            <div class="flex flex-row items-center justify-between">
-               <label>Constellation</label>
-            <h2 class="title-font text-lg font-medium text-gray-900">{{data.constellation}}</h2>
-
-            </div>
-            <div class="flex flex-row items-center justify-between">
-               <label>Health Code</label>
-               <!-- <span [ngStyle]="{ 'background-color': getBgColor() }">Your content</span> -->
-            <p class="mt-1">{{data.orbit.healthCode}}</p>
-            </div>
-            <div class="flex flex-row items-center justify-between">
-             <label>Latitude</label>
-            <p class="mt-1">{{data.path[0].trace.latitude}}</p>
-            </div>
-            <div class="flex flex-row items-center justify-between">
-              <label>Longitude</label>
-             <p class="mt-1">{{data.path[0].trace.longitude}}</p>
-             </div>
-             <div>
-              <button type="button" (click)="toggleModal()" class="py-2 px-2 mx-2 my-2 rounded-full bg-cyan-500 text-black">View More...</button>
-             </div>
-          </div>
-        </div>
-
-    </div>
-  </div>
-
+<div>
   <!-- <button class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" (click)="toggleModal()">
     Open regular modal
   </button> -->
@@ -145,10 +105,10 @@
               <tr class="bg-gray-100 border-b">
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{data.displayName}}</td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  {{data.constellation}
+                  {{data.constellation}}
                 </td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  {{data.healthCode}}
+                  {{data.orbit.healthCode}}
                 </td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                   {{data.path[0].trace.latitude}}

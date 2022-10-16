@@ -11,6 +11,7 @@ import { ReactiveFormsModule ,FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { StaffComponent } from './staff/staff.component';
+import { GoogleMapsModule } from '@angular/google-maps'
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { StaffComponent } from './staff/staff.component';
     FormsModule,
     HttpClientModule,
     Ng2SearchPipeModule,
+    GoogleMapsModule,
 
   ],
   providers: [],

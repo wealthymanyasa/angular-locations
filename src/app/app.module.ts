@@ -11,9 +11,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { StaffComponent } from './staff/staff.component';
 
-import { AgmCoreModule } from "@agm/core";
-import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
-import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
+// import { AgmCoreModule } from "@agm/core";
+// import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
+// import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 
 
 @NgModule({
@@ -31,17 +31,17 @@ import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
     Ng2SearchPipeModule,
-    AgmJsMarkerClustererModule,
-    AgmSnazzyInfoWindowModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBiYfysdWzUtJccboDFytNRoDCiuzv2IO0',
-      language: "en",
-		  libraries: ['places','geometry']
-    }),
+    ReactiveFormsModule ,
+    // AgmJsMarkerClustererModule,
+    // AgmSnazzyInfoWindowModule,
+    // AgmCoreModule.forRoot({
+    //   apiKey: 'AIzaSyBiYfysdWzUtJccboDFytNRoDCiuzv2IO0',
+    //   language: "en",
+		//   libraries: ['places','geometry']
+    // }),
 
 
   ],
